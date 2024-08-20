@@ -36,6 +36,8 @@
 #define ALPN_H2 "h2"
 #define ALPN_H3_LENGTH 2
 #define ALPN_H3 "h3"
+#define ALPN_HQ_INTEROP_LENGTH 10
+#define ALPN_HQ_INTEROP "hq-interop"
 
 /* conservative sizes on the ALPN entries and count we are handling,
  * we can increase these if we ever feel the need or have to accommodate

@@ -3176,6 +3176,12 @@ if test "x$disable_http" = "xyes" -o "x$OPENSSL_ENABLED" != "x1"; then
   OPT_OPENSSL_QUIC="no"
 fi
 
+AC_ARG_WITH(quic-interop,
+AS_HELP_STRING([enable sending of hq-interop alpn for http1.0]),
+AC_DEFINE(USE_QUIC_INTEROP, 1, [send hq-interop alpn for http1.0]),
+[]
+)
+
 AC_ARG_WITH(openssl-quic,
 AS_HELP_STRING([--with-openssl-quic],[Enable OpenSSL QUIC usage])
 AS_HELP_STRING([--without-openssl-quic],[Disable OpenSSL QUIC usage]),

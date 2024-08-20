@@ -133,6 +133,11 @@ static bool blobcmp(struct curl_blob *first, struct curl_blob *second)
   return !memcmp(first->data, second->data, first->len); /* same data */
 }
 
+#ifdef USE_QUIC_INTEROP
+static const struct alpn_spec ALPN_SPEC_QUIC_INTEROP = {
+  {ALPN_HTTP_1_1, ALPN_HQ_INTEROP}, 2
+};
+#endif
 #ifdef USE_SSL
 static const struct alpn_spec ALPN_SPEC_H11 = {
   { ALPN_HTTP_1_1 }, 1
@@ -147,6 +152,10 @@ static const struct alpn_spec *alpn_get_spec(int httpwant, bool use_alpn)
 {
   if(!use_alpn)
     return NULL;
+#ifdef USE_QUIC_INTEROP
+  if(httpwant == CURL_HTTP_VERSION_1_0)
+    return &ALPN_SPEC_QUIC_INTEROP;
+#endif
 #ifdef USE_HTTP2
   if(httpwant >= CURL_HTTP_VERSION_2)
     return &ALPN_SPEC_H2_H11;
